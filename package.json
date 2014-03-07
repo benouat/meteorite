@@ -1,0 +1,30 @@
+{
+  "name": "meteorite",
+  "version": "0.0.1",
+  "description": "HTMLish components definition for Hashspace",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benouat/meteorite.git"
+  },
+  "author": "benouat <benoit@ariatemplates.com>",
+  "license": "APACHE2.0",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/benouat/meteorite/issues"
+  },
+  "dependencies": {
+    "hashspace": "*",
+    "browserify": "~3.32.0",
+    "noder-js": "~1.2.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-verifylowercase": "~0.2.0",
+    "grunt-leading-indent": "~0.1.0",
+    "grunt-contrib-jshint": "0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-browserify": "~2.0.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "load-grunt-tasks": "~0.2.1"
+  }
+}
