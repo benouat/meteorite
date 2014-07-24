@@ -1,0 +1,23 @@
+
+<div class="hello">
+  Hello {world}
+</div>
+
+<!-- Component style, will be injected in the page only once for all component instances -->
+<style>
+  .hello {
+    background-color: #d15c5c;
+  }
+</style>
+
+<script>
+  function(hsp) {
+    var $klass = hsp.$klass;
+
+    var HelloCtrl = $klass({
+
+    });
+
+    module.exports = HelloCtrl;
+  }
+</script>

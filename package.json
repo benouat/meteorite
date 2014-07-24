@@ -1,7 +1,7 @@
 {
   "name": "meteorite",
   "version": "0.0.1",
-  "description": "HTMLish components definition for Hashspace",
+  "description": "HTMLish syntax definition for Hashspace",
   "repository": {
     "type": "git",
     "url": "https://github.com/benouat/meteorite.git"
@@ -12,19 +12,23 @@
   "bugs": {
     "url": "https://github.com/benouat/meteorite/issues"
   },
-  "dependencies": {
-    "hashspace": "*",
-    "browserify": "~3.32.0",
-    "noder-js": "~1.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-verifylowercase": "~0.2.0",
-    "grunt-leading-indent": "~0.1.0",
-    "grunt-contrib-jshint": "0.7.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-browserify": "~2.0.0",
-    "grunt-contrib-uglify": "~0.2.7",
-    "load-grunt-tasks": "~0.2.1"
+    "chai": "^1.9.1",
+    "gulp": "^3.8.6",
+    "gulp-concat": "^2.3.4",
+    "gulp-hashspace": "0.0.3",
+    "gulp-noder": "0.0.3",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-util": "^3.0.0",
+    "htmlparser": "^1.7.7",
+    "karma": "^0.12.17",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-commonjs": "0.0.10",
+    "karma-mocha": "^0.1.6",
+    "mocha": "^1.21.0",
+    "rimraf": "^2.2.8"
   }
 }

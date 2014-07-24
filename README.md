@@ -1,4 +1,4 @@
 meteorite
 =========
 
-HTMLish components definition for Hashsapce
+HTMLish syntax definition for Hashspace
