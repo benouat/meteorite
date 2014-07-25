@@ -1,0 +1,22 @@
+
+<template id="hello" args="data" export>
+  <h1>Welcome to meteorite !</h1>
+  <#helloworld name="{data.name}" />
+  <p>
+    <label>Your name</label><br/>
+    <input type="text" value="{data.name}" />
+  </p>
+</template>
+
+<script type="text/javascript">
+  var HelloWorldCtrl = function HelloWorldCtrl() {
+  };
+
+  HelloWorldCtrl.prototype.attributes = {
+    "name": { type: "string", binding: "2-way"}
+  };
+</script>
+
+<template id="helloworld" using="HelloWorldCtrl" ref="ctrl">
+  <p>Bonjour {ctrl.name}!</p>
+</template>

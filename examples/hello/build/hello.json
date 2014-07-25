@@ -1,0 +1,162 @@
+[
+  {
+    "raw": "\r\n\r\n",
+    "data": "\r\n\r\n",
+    "type": "text",
+    "location": {
+      "line": 1,
+      "col": 1
+    }
+  },
+  {
+    "raw": "template id=\"hello\" args=\"name\" export",
+    "data": "template id=\"hello\" args=\"name\" export",
+    "type": "tag",
+    "name": "template",
+    "location": {
+      "line": 3,
+      "col": 1
+    },
+    "attribs": {
+      "id": "hello",
+      "args": "name",
+      "export": "export"
+    },
+    "children": [
+      {
+        "raw": "\r\n  Welcome to meteorite !\r\n  ",
+        "data": "\r\n  Welcome to meteorite !\r\n  ",
+        "type": "text",
+        "location": {
+          "line": 3,
+          "col": 41
+        }
+      },
+      {
+        "raw": "#helloworld name=\"{name}\" /",
+        "data": "#helloworld name=\"{name}\" /",
+        "type": "tag",
+        "name": "#helloworld",
+        "location": {
+          "line": 5,
+          "col": 3
+        },
+        "attribs": {
+          "name": "{name}"
+        }
+      },
+      {
+        "raw": "\r\n",
+        "data": "\r\n",
+        "type": "text",
+        "location": {
+          "line": 5,
+          "col": 32
+        }
+      }
+    ]
+  },
+  {
+    "raw": "\r\n\r\n",
+    "data": "\r\n\r\n",
+    "type": "text",
+    "location": {
+      "line": 6,
+      "col": 12
+    }
+  },
+  {
+    "raw": "script type=\"text/javascript\"",
+    "data": "script type=\"text/javascript\"",
+    "type": "script",
+    "name": "script",
+    "location": {
+      "line": 8,
+      "col": 2
+    },
+    "attribs": {
+      "type": "text/javascript"
+    },
+    "children": [
+      {
+        "raw": "\r\n  var Class = require(\"hsp/klass\");\r\n  var HelloWorldCtrl = function HelloWorldCtrl() {\r\n    this.attributes = {\r\n      \"name\": { type: \"string\" }\r\n    }\r\n  };\r\n",
+        "data": "\r\n  var Class = require(\"hsp/klass\");\r\n  var HelloWorldCtrl = function HelloWorldCtrl() {\r\n    this.attributes = {\r\n      \"name\": { type: \"string\" }\r\n    }\r\n  };\r\n",
+        "type": "text",
+        "location": {
+          "line": 8,
+          "col": 32
+        }
+      }
+    ]
+  },
+  {
+    "raw": "\r\n\r\n",
+    "data": "\r\n\r\n",
+    "type": "text",
+    "location": {
+      "line": 15,
+      "col": 10
+    }
+  },
+  {
+    "raw": "template id=\"helloworld\" using=\"HelloWorldCtrl\" ref=\"ctrl\"",
+    "data": "template id=\"helloworld\" using=\"HelloWorldCtrl\" ref=\"ctrl\"",
+    "type": "tag",
+    "name": "template",
+    "location": {
+      "line": 17,
+      "col": 1
+    },
+    "attribs": {
+      "id": "helloworld",
+      "using": "HelloWorldCtrl",
+      "ref": "ctrl"
+    },
+    "children": [
+      {
+        "raw": "\r\n  ",
+        "data": "\r\n  ",
+        "type": "text",
+        "location": {
+          "line": 17,
+          "col": 61
+        }
+      },
+      {
+        "raw": "p",
+        "data": "p",
+        "type": "tag",
+        "name": "p",
+        "location": {
+          "line": 18,
+          "col": 3
+        },
+        "children": [
+          {
+            "raw": "Hello {ctrl.name}!",
+            "data": "Hello {ctrl.name}!",
+            "type": "text",
+            "location": {
+              "line": 18,
+              "col": 6
+            }
+          }
+        ]
+      },
+      {
+        "raw": "\r\n",
+        "data": "\r\n",
+        "type": "text",
+        "location": {
+          "line": 18,
+          "col": 28
+        }
+      }
+    ]
+  },
+  {
+    "raw": "\r\n",
+    "data": "\r\n",
+    "type": "text"
+  }
+]
