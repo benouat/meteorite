@@ -1,22 +1,32 @@
 
-<template id="hello" args="data" export>
+<hsp-tpl id="hello" args="data" export>
   <h1>Welcome to meteorite !</h1>
-  <#helloworld name="{data.name}" />
+  <#helloworld names="{data.names}" />
   <p>
     <label>Your name</label><br/>
-    <input type="text" value="{data.name}" />
+    <input type="text" value="{data.names[0]}" />
   </p>
-</template>
+</hsp-tpl>
 
 <script type="text/javascript">
   var HelloWorldCtrl = function HelloWorldCtrl() {
   };
 
   HelloWorldCtrl.prototype.attributes = {
-    "name": { type: "string", binding: "2-way"}
+    "names": { type: "object", binding: "2-way"}
   };
 </script>
 
-<template id="helloworld" using="HelloWorldCtrl" ref="ctrl">
-  <p>Bonjour {ctrl.name}!</p>
-</template>
+<hsp-tpl id="helloworld" using="HelloWorldCtrl" ref="ctrl">
+  <hsp-tag let="{myNames = ctrl.names}"/>
+  <hsp-tag log="{scope}"/>
+  <hsp-tag foreach="{name in myNames}">
+    <hsp-tag if="{name == 'World'}">
+      <p><b>Bonjour {name}!</b></p>
+    <hsp-tag elseif="{name == 'Hashspace'}"/>
+      <p><i>Bonjour {name}!</i></p>
+    <hsp-tag else/>
+      <p>Bonjour {name}!</p>
+    </hsp-tag>
+  </hsp-tag>
+</hsp-tpl>

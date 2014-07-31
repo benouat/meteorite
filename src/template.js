@@ -21,7 +21,7 @@ Template.prototype.checkIsValid = function () {
     if(node.type === "text" && /\s*(\r|\n|[\r\n])*/.test(node.data)) {
       return;
     }
-    if (["script", "template"].indexOf(node.name) === -1) {
+    if (["script", "hsp-tpl"].indexOf(node.name) === -1) {
       throw new InvalidTagError(node, self.path);
     }
   });
@@ -36,7 +36,7 @@ module.exports = Template;
 
 
 var processors = {
-  'template': function(node) {
+  'hsp-tpl': function(node) {
     var out = [],
         statement = "template",
         start = [],
@@ -73,20 +73,72 @@ var processors = {
   },
   'text': function(node) {
     return node.raw;
+  },
+  'hsp-tag': function(node) {
+    var out = [],
+      start = [],
+      end = "";
+
+    if (node.attribs.if) {
+      start = defineStart(node, "if", "if");
+      end = "{/if}";
+    }
+    else if (node.attribs.else) {
+      end = "{else}";
+    }
+    else if (node.attribs.foreach) {
+      start = defineStart(node, "foreach", "foreach");
+      end = "{/foreach}";
+    }
+    else if (node.attribs.elseif) {
+      start = defineStart(node, "else if", "elseif");
+    }
+    else if (node.attribs.log) {
+      start = defineStart(node, "log", "log");
+    }
+    else if (node.attribs.let) {
+      start = defineStart(node, "let", "let");
+    }
+
+    // we push the statement definition
+    out.push(start.join(""));
+    // we push the content
+    (node.children || []).forEach(function(child) {
+      childrenWalk(child, out);
+    })
+    // we push the statement end definition
+    out.push(end);
+    return out.join("");
   }
 };
 
-function childrenWalk(node, out) {
-  var selfClosed = (/\/$/).test(node.raw);
-  if (node.type === "text") {
-    return out.push(node.raw);
+function defineStart(node, tag, attrName) {
+  var out = [];
+  out.push("{" + tag + " ");
+  var expr = node.attribs[attrName].trim();
+  if (expr.length >= 2 && expr.charAt(0) === "{" && expr.charAt(expr.length - 1)) {
+    out.push(expr.substr(1, expr.length - 2));
   }
-  out.push(["<", node.raw, ">"].join(''));
-  (node.children || []).forEach(function(child) {
-    childrenWalk(child, out);
-  });
-  if (!selfClosed) {
-    out.push(["</", node.name, ">"].join(''));
+  out.push("}");
+  return out;
+}
+
+function childrenWalk(node, out) {
+  if (node.name !== "hsp-tag") {
+    var selfClosed = (/\/$/).test(node.raw);
+    if (node.type === "text") {
+      return out.push(node.raw);
+    }
+    out.push(["<", node.raw, ">"].join(''));
+    (node.children || []).forEach(function(child) {
+      childrenWalk(child, out);
+    });
+    if (!selfClosed) {
+      out.push(["</", node.name, ">"].join(''));
+    }
+  }
+  else {
+    out.push(processors[node.name](node))
   }
 }
 
