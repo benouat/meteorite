@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hashspace Meteorite: Hello World</title>
+    <script type="text/javascript" src="http://noder-js.ariatemplates.com/dist/v1.6.0/noder.min.js"></script>
+    <script type="text/javascript" src="http://hashspace.ariatemplates.com/dist/0.0.4/hashspace-noder.min.js"></script>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script type="application/x-noder">
+      var hello = require("hello.hsp").hello,
+          data = {
+            'names': ["You", "Hashspace", "World"]
+          }
+      hello(data).render('main');
+    </script>
+  </body>
+</html>
