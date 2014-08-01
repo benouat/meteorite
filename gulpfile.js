@@ -11,12 +11,13 @@ var meteorite = require('./index');
 var PATHS = {
   'static': ['./examples/**/*.html', '!./examples/**/*.hsp.html'],
   'hsp_dynamic': './examples/**/*.hsp.html',
-  'dynamic': './examples/**/*.js'
+  'dynamic': './examples/**/*.js',
+  'hsp': './examples/**/*.hsp'
 }
 
 
 
-gulp.task('build-hsp', function() {
+gulp.task('build-hsp_dynamic', function() {
   return gulp.src(PATHS.hsp_dynamic)
     .pipe(meteorite())
     .pipe(hsp.process())
@@ -36,13 +37,20 @@ gulp.task('build-static', function() {
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('play', ['build-static', 'build-dynamic', 'build-hsp'], function() {
+gulp.task('build-hsp', function() {
+  return gulp.src(PATHS.hsp)
+    .pipe(hsp.process())
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('play', ['build-static', 'build-dynamic', 'build-hsp_dynamic', 'build-hsp'], function() {
   var wwwServerPort = gutil.env.port || 8000;
 
   //observe files for changes
   gulp.watch(PATHS.static, ['build-static']);
   gulp.watch(PATHS.dynamic, ['build-dynamic']);
-  gulp.watch(PATHS.hsp_dynamic, ['build-hsp']);
+  gulp.watch(PATHS.hsp_dynamic, ['build-hsp_dynamic']);
+  gulp.watch(PATHS.hsp, ['build-hsp']);
 
   http.createServer(connect().use(connect.static('./build'))).listen(wwwServerPort, function() {
     gutil.log('Server started at http://localhost:' + wwwServerPort);

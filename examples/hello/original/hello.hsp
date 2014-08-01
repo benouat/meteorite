@@ -1,0 +1,31 @@
+{export template hello(data)}
+  <h1>Welcome to meteorite !</h1>
+  <#helloworld names="{data.names}" />
+  <p>
+    <label>Your name</label><br/>
+    <input type="text" value="{data.names[0]}" />
+  </p>
+{/template}
+
+
+var HelloWorldCtrl = function HelloWorldCtrl() {
+};
+
+HelloWorldCtrl.prototype.attributes = {
+  "names": { type: "object", binding: "2-way"}
+};
+
+
+{template helloworld using ctrl:HelloWorldCtrl}
+  {let myNames = ctrl.names}
+  {log scope}
+  {foreach name in myNames}
+    {if name == 'World'}
+      <p><b>Bonjour {name}!</b></p>
+    {else if name == 'Hashspace'}
+      <p><i>Bonjour {name}!</i></p>
+    {else}
+      <p>Bonjour {name}!</p>
+    {/if}
+  {/foreach}
+{/template}
