@@ -1,0 +1,31 @@
+<hsp-tpl id="hello" args="data" export>
+  <h1>Welcome to meteorite !</h1>
+  <#helloworld names="{data.names}" />
+  <p>
+    <label>Your name</label><br/>
+    <input type="text" value="{data.names[0]}" />
+  </p>
+</hsp-tpl>
+
+<script type="text/javascript">
+  var HelloWorldCtrl = function HelloWorldCtrl() {
+  };
+
+  HelloWorldCtrl.prototype.attributes = {
+    "names": { type: "object", binding: "2-way"}
+  };
+</script>
+
+<hsp-tpl id="helloworld" using="HelloWorldCtrl" ref="ctrl">
+  <hsp-let expr="{myNames = ctrl.names}"/>
+  <hsp-log expr="{scope}"/>
+  <hsp-foreach expr="{name in myNames}">
+    <hsp-if expr="{name == 'World'}">
+      <p><b>Bonjour {name}!</b></p>
+    <hsp-elseif expr="{name == 'Hashspace'}"/>
+      <p><i>Bonjour {name}!</i></p>
+    <hsp-else/>
+      <p>Bonjour {name}!</p>
+    </hsp-if>
+  </hsp-foreach>
+</hsp-tpl>

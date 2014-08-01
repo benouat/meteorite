@@ -75,8 +75,7 @@ var processors = {
     return node.raw;
   },
   'hsp-tag': function(node) {
-    var out = [],
-      start = [],
+    var start = [],
       end = "";
 
     if (node.attribs.if) {
@@ -99,18 +98,40 @@ var processors = {
     else if (node.attribs.let) {
       start = defineStart(node, "let", "let");
     }
-
-    // we push the statement definition
-    out.push(start.join(""));
-    // we push the content
-    (node.children || []).forEach(function(child) {
-      childrenWalk(child, out);
-    })
-    // we push the statement end definition
-    out.push(end);
-    return out.join("");
+    return processNode(node, start, end);
+  },
+  'hsp-log': function(node) {
+    return processNode(node, defineStart(node, "log", "expr"), "");
+  },
+  'hsp-let': function(node) {
+    return processNode(node, defineStart(node, "let", "expr"), "");
+  },
+  'hsp-foreach': function(node) {
+    return processNode(node, defineStart(node, "foreach", "expr"), "{/foreach}");
+  },
+  'hsp-if': function(node) {
+    return processNode(node, defineStart(node, "if", "expr"), "{/if}");
+  },
+  'hsp-elseif': function(node) {
+    return processNode(node, defineStart(node, "else if", "expr"), "");
+  },
+  'hsp-else': function(node) {
+    return processNode(node, [], "{else}");
   }
 };
+
+function processNode(node, start, end) {
+  var out = [];
+  // we push the statement definition
+  out.push(start.join(""));
+  // we push the content
+  (node.children || []).forEach(function(child) {
+    childrenWalk(child, out);
+  })
+  // we push the statement end definition
+  out.push(end);
+  return out.join("");
+}
 
 function defineStart(node, tag, attrName) {
   var out = [];
@@ -124,7 +145,10 @@ function defineStart(node, tag, attrName) {
 }
 
 function childrenWalk(node, out) {
-  if (node.name !== "hsp-tag") {
+  if (processors[node.name]) {
+    out.push(processors[node.name](node));
+  }
+  else {
     var selfClosed = (/\/$/).test(node.raw);
     if (node.type === "text") {
       return out.push(node.raw);
@@ -136,9 +160,6 @@ function childrenWalk(node, out) {
     if (!selfClosed) {
       out.push(["</", node.name, ">"].join(''));
     }
-  }
-  else {
-    out.push(processors[node.name](node))
   }
 }
 
